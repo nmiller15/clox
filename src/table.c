@@ -35,10 +35,6 @@ static Entry* findEntry(Entry* entries, int capacity, ObjString* key) {
             return entry;
         }
 
-        if (entry->key == key || entry->key == NULL) {
-            return entry;
-        }
-
         index = (index + 1) % capacity;
     }
 }
@@ -60,9 +56,6 @@ static void adjustCapacity(Table* table, int capacity) {
         entries[i].value = NIL_VAL;
     }
 
-    table->entries = entries;
-    table->capacity = capacity;
-
     table->count = 0;
     for (int i = 0; i < table->capacity; i++) {
         Entry* entry = &table->entries[i];
@@ -75,6 +68,8 @@ static void adjustCapacity(Table* table, int capacity) {
     }
 
     FREE_ARRAY(Entry, table->entries, table->capacity);
+    table->entries = entries;
+    table->capacity = capacity;
 }
 
 bool tableSet(Table* table, ObjString* key, Value value) {
@@ -131,6 +126,5 @@ ObjString* tableFindString(Table* table, const char* chars,
 
         index = (index + 1) % table->capacity;
     }
-
 }
 

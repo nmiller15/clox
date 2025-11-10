@@ -1,0 +1,7 @@
+var bacon = "thick-cut bacon";
+{
+    var bacon = "Canadian bacon";
+    print "I like my breakfast with " + bacon;
+}
+
+print "Well, I like mine with " + bacon;
